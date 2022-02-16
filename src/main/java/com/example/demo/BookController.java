@@ -37,22 +37,30 @@ public class BookController {
 
         return books;
     }
+
     //Hľadanie knihy podľa názvu
     @GetMapping("/api/books")
-    public List<Book> getBooksByTitle(@RequestParam(required = false) String title){
+    public List<String> getBooksByTitle(@RequestParam(required = false) String title){
+
+        List<String> nonFilteredBooks = new ArrayList<>();
+
         if(title == null){
-            return this.books;
+            for (Book book : books){
+                nonFilteredBooks.add(book.getTitle());
+            }
+            return nonFilteredBooks;
         }
 
-        List<Book> filteredBooks = new ArrayList<>();
+        List<String> filteredBooks = new ArrayList<>();
 
         for (Book book : books){
             if(book.getTitle().equals(title)){
-                filteredBooks.add(book);
+                filteredBooks.add(book.getTitle());
             }
         }
         return filteredBooks;
     }
+
     //Hľadanie knihy podľa ID
     @GetMapping("/api/books/{bookId}")
     public List<String> getBookById(@PathVariable Integer bookId){
@@ -64,21 +72,20 @@ public class BookController {
         }
         return filteredBooks;
     }
+
     //Pridanie novej knihy
     @PostMapping("/api/books")
     public Integer createBook(@RequestBody Book book){
         this.books.add(book);
         return this.books.size() - 1;
     }
+
     //Zmazanie knihy podľa ID
     @DeleteMapping("/api/books/{bookId}")
-    public void deleteBook(@PathVariable Long bookId){
-        for (Book book : books){
-            if(book.getId() == bookId){
-                this.books.remove((int)book.getId());
-            }
-        }
+    public void deleteBook(@PathVariable Integer bookId){
+        this.books.remove(this.books.get(bookId));
     }
+
     //Aktualizácia knihy podľa ID
     @PutMapping("/api/books/{bookId}")
     public void updateBook(@PathVariable Integer bookId, @RequestBody Book book){
@@ -87,6 +94,5 @@ public class BookController {
         this.books.get(bookId).setAuthorLastName(book.getAuthorLastName());
         this.books.get(bookId).setBookCount(book.getBookCount());
         this.books.get(bookId).setIsbn(book.getIsbn());
-
     }
 }
