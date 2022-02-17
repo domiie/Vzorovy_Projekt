@@ -114,5 +114,6 @@ public class BookController {
         this.books.get(bookId).setAuthorLastName(book.getAuthorLastName());
         this.books.get(bookId).setBookCount(book.getBookCount());
         this.books.get(bookId).setIsbn(book.getIsbn());
+        this.books.get(bookId).setId(book.getId());
     }
 }
