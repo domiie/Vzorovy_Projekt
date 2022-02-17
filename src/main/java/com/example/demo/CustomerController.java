@@ -22,12 +22,14 @@ public class CustomerController {
         customer1.setLastName("Dobra");
         customer1.setContact("a.dobra@example.com");
         customers.add(customer1);
+        customer1.setId((long) customers.indexOf(customer1));
 
         Customer customer2 = new Customer();
         customer2.setFirstName("Ivan");
         customer2.setLastName("Lexa");
         customer2.setContact("ivan.lexa@example.com");
         customers.add(customer2);
+        customer2.setId((long) customers.indexOf(customer2));
 
         return customers;
     }
@@ -36,7 +38,8 @@ public class CustomerController {
     @PostMapping("/api/customers")
     public String createCustomer(@RequestBody Customer customer){
         this.customers.add(customer);
-        return "Customer with id "+(this.customers.size() - 1)+" created.";
+        customer.setId((long) customers.size()-1);
+        return "Customer with id "+(this.customers.size()-1)+" created.";
     }
 
     //LIST CUSTOMERS

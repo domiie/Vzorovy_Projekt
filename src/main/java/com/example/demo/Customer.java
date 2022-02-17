@@ -1,6 +1,7 @@
 package com.example.demo;
 
 public class Customer {
+    private Long id;
     private String firstName;
     private String lastName;
     private String contact;
@@ -29,4 +30,11 @@ public class Customer {
         this.contact = contact;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
