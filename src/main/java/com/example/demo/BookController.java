@@ -38,7 +38,7 @@ public class BookController {
         return books;
     }
 
-    //Hľadanie knihy podľa názvu
+
 //    @GetMapping("/api/books")
 //    public List<String> getBooksByTitle(@RequestParam(required = false) String title){
 //
@@ -61,6 +61,7 @@ public class BookController {
 //        return filteredBooks;
 //    }
 
+    //Hľadanie knihy podľa názvu
     @GetMapping("/api/books")
     public List<Book> getBooksByTitle(@RequestParam(required = false) String title){
 
