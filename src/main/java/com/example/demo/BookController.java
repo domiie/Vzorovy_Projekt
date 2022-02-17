@@ -39,23 +39,42 @@ public class BookController {
     }
 
     //Hľadanie knihy podľa názvu
-    @GetMapping("/api/books")
-    public List<String> getBooksByTitle(@RequestParam(required = false) String title){
+//    @GetMapping("/api/books")
+//    public List<String> getBooksByTitle(@RequestParam(required = false) String title){
+//
+//        List<String> nonFilteredBooks = new ArrayList<>();
+//
+//        if(title == null){
+//            for (Book book : books){
+//                nonFilteredBooks.add(book.getTitle());
+//            }
+//            return nonFilteredBooks;
+//        }
+//
+//        List<String> filteredBooks = new ArrayList<>();
+//
+//        for (Book book : books){
+//            if(book.getTitle().equals(title)){
+//                filteredBooks.add(book.getTitle());
+//            }
+//        }
+//        return filteredBooks;
+//    }
 
-        List<String> nonFilteredBooks = new ArrayList<>();
+    @GetMapping("/api/books")
+    public List<Book> getBooksByTitle(@RequestParam(required = false) String title){
 
         if(title == null){
             for (Book book : books){
-                nonFilteredBooks.add(book.getTitle());
+                return this.books;
             }
-            return nonFilteredBooks;
         }
 
-        List<String> filteredBooks = new ArrayList<>();
+        List<Book> filteredBooks = new ArrayList<>();
 
         for (Book book : books){
             if(book.getTitle().equals(title)){
-                filteredBooks.add(book.getTitle());
+                filteredBooks.add(book);
             }
         }
         return filteredBooks;
@@ -63,11 +82,11 @@ public class BookController {
 
     //Hľadanie knihy podľa ID
     @GetMapping("/api/books/{bookId}")
-    public List<String> getBookById(@PathVariable Integer bookId){
-        List<String> filteredBooks = new ArrayList<>();
+    public List<Book> getBookById(@PathVariable Integer bookId){
+        List<Book> filteredBooks = new ArrayList<>();
         for (Book book : books){
             if(book.getId() == bookId){
-                filteredBooks.add(book.getTitle());
+                filteredBooks.add(book);
             }
         }
         return filteredBooks;
