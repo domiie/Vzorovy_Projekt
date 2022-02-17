@@ -24,7 +24,7 @@ public class BorrowingsController {
     }
 
     @GetMapping("/api/borrowings")
-    public List<BorrowedBook> getBorrowings(@RequestBody BorrowedBook borrowing){
+    public List<BorrowedBook> getBorrowings(){
         return this.borrowings;
     }
 
