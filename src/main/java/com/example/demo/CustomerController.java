@@ -7,7 +7,11 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-    private List<Customer> customers;
+    protected List<Customer> customers;
+
+    public List<Customer> getListOfCustomers(){
+        return this.customers;
+    }
 
     public CustomerController(){
         this.customers = init();

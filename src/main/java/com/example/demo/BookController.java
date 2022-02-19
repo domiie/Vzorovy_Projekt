@@ -10,6 +10,10 @@ public class BookController {
 
     private List<Book> books;
 
+    public List<Book> getListOfBooks(){
+        return this.books;
+    }
+
     public BookController(){
         this.books = init();
     }
@@ -22,18 +26,18 @@ public class BookController {
         book1.setAuthorLastName("Doyle");
         book1.setTitle("Study in Red");
         book1.setIsbn("974-AD-41-C-F");
-        book1.setId(0);
         book1.setBookCount(17);
         books.add(book1);
+        book1.setId((long) books.indexOf(book1));
 
         Book book2 = new Book();
         book2.setAuthorFirstName("J.R.R.");
         book2.setAuthorLastName("Tolkien");
         book2.setTitle("The Hobbit");
         book2.setIsbn("128-XD-77-Q-F");
-        book2.setId(1);
         book2.setBookCount(12);
         books.add(book2);
+        book2.setId((long) books.indexOf(book2));
 
         return books;
     }
@@ -83,14 +87,8 @@ public class BookController {
 
     //Hľadanie knihy podľa ID
     @GetMapping("/api/books/{bookId}")
-    public List<Book> getBookById(@PathVariable Integer bookId){
-        List<Book> filteredBooks = new ArrayList<>();
-        for (Book book : books){
-            if(book.getId() == bookId){
-                filteredBooks.add(book);
-            }
-        }
-        return filteredBooks;
+    public Book getBookById(@PathVariable Integer bookId){
+        return this.books.get(bookId);
     }
 
     //Pridanie novej knihy
