@@ -10,6 +10,10 @@ public class BookController {
 
     private List<Book> books;
 
+    public List<Book> getListOfBooks(){
+        return this.books;
+    }
+
     public BookController(){
         this.books = init();
     }
@@ -83,14 +87,8 @@ public class BookController {
 
     //Hľadanie knihy podľa ID
     @GetMapping("/api/books/{bookId}")
-    public List<Book> getBookById(@PathVariable long bookId){
-        List<Book> filteredBooks = new ArrayList<>();
-        for (Book book : books){
-            if(book.getId() == bookId){
-                filteredBooks.add(book);
-            }
-        }
-        return filteredBooks;
+    public Book getBookById(@PathVariable Integer bookId){
+        return this.books.get(bookId);
     }
 
     //Pridanie novej knihy

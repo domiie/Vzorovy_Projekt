@@ -4,6 +4,8 @@ public class BorrowedBook {
     private Long id;
     private Customer customer;
     private Book book;
+    protected Long customerId;
+    protected Long bookId;
 
     public Long getId() {
         return id;
