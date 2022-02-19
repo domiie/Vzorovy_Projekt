@@ -40,9 +40,9 @@ public class BorrowingsController {
         return this.borrowings;
     }
     //GET BORROWING BY ID
-    @GetMapping("/api/borrowings/{borrowId}")
-    public BorrowedBook getBorrowingById(@PathVariable Integer borrowId){
-        return this.borrowings.get(borrowId);
+    @GetMapping("/api/borrowings/{borrowingId}")
+    public BorrowedBook getBorrowingById(@PathVariable Integer borrowingId){
+        return this.borrowings.get(borrowingId);
     }
 
     //CREATING NEW BORROWING
@@ -60,5 +60,11 @@ public class BorrowingsController {
         return "Borrowing with id "+(this.borrowings.size()-1)+" was created.";
     }
 
+    //DELETING BORROWING BY ID
+    @DeleteMapping("/api/borrowings/{borrowingId}")
+    public String deleteBorrowing(@PathVariable Integer borrowingId){
+        this.borrowings.remove(this.borrowings.get(borrowingId));
+        return "Borrowing with id "+(this.borrowings.size()-1)+" was deleted.";
+    }
 
 }
