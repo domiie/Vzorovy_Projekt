@@ -5,7 +5,7 @@ public class Book {
     private String authorLastName;
     private String title;
     private String isbn;
-    private long id;
+    private Long id;
     private int bookCount;
 
     public String getAuthorFirstName() {
@@ -24,7 +24,7 @@ public class Book {
         return isbn;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -48,7 +48,7 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
