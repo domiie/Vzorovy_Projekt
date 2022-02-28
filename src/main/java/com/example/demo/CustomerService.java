@@ -34,6 +34,10 @@ public class CustomerService {
         return customers;
     }
 
+    public List<Customer> getListOfCustomers(){
+          return this.customers;
+     }
+
     //CREATE
     public String createCustomer(Customer customer){
         this.customers.add(customer);
