@@ -8,10 +8,6 @@ import java.util.List;
 public class CustomerController {
     private CustomerService customerService;
 
-//    public List<Customer> getListOfCustomers(){
-//        return this.customers;
-//    }
-
     public CustomerController(CustomerService customerService){
         this.customerService = customerService;
     }
