@@ -29,9 +29,12 @@ public class BookService {
 
     @Transactional
     public Long createBook(BookDto book){
+        //vytvarame novu entitu
         BookEntity bookEntity = new BookEntity();
+        //nastavie name and title
         bookEntity.setAuthor(book.getAuthorFirstName());
         bookEntity.setTitle(book.getTitle());
+        //ulozime
         this.bookRepository.save(bookEntity);
         return bookEntity.getId();
     }
