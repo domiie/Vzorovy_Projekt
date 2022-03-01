@@ -1,6 +1,8 @@
+version: "3.3"
+
 services:
   library:
-    restar: always
+    restart: always
     image: sameersbn/postgresql:10-2
     environment:
       - PG_TRUST_LOCALNET=true
@@ -15,6 +17,6 @@ services:
       - data:/var/lib/postgresql
       - logs:/var/log/postgresql
 
-  volumes:
-    data:
-    logs:
+volumes:
+  data:
+  logs:
