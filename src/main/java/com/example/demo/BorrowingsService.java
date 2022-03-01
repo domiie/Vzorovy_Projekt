@@ -9,11 +9,11 @@ import java.util.List;
 public class BorrowingsService {
     private List<BorrowedBook> borrowings;
     Customer customer;
-    Book book;
+    BookDto book;
     private BookService bookService;
     private CustomerService customerService;
     private List<Customer> customers = customerService.getListOfCustomers();
-    private List<Book> books = bookService.getListOfBooks();
+    private List<BookDto> books = bookService.getListOfBooks();
     public BorrowingsService(){
         this.borrowings = init();
     }

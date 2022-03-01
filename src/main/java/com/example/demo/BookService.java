@@ -6,15 +6,15 @@ import java.util.List;
 
 @Service
 public class BookService {
-    private List<Book> books;
+    private List<BookDto> books;
 
     public BookService(){
         this.books = init();
     }
-    private List<Book> init(){
-        List<Book> books = new ArrayList<>();
+    private List<BookDto> init(){
+        List<BookDto> books = new ArrayList<>();
 
-        Book book1 = new Book();
+        BookDto book1 = new BookDto();
         book1.setAuthorFirstName("Arthur");
         book1.setAuthorLastName("Doyle");
         book1.setTitle("Study in Red");
@@ -23,7 +23,7 @@ public class BookService {
         books.add(book1);
         book1.setId((long) books.indexOf(book1));
 
-        Book book2 = new Book();
+        BookDto book2 = new BookDto();
         book2.setAuthorFirstName("J.R.R.");
         book2.setAuthorLastName("Tolkien");
         book2.setTitle("The Hobbit");
@@ -35,21 +35,21 @@ public class BookService {
         return books;
     }
 
-    public List<Book> getListOfBooks(){
+    public List<BookDto> getListOfBooks(){
         return this.books;
     }
 
-    public List<Book> getBooksByTitle(String title){
+    public List<BookDto> getBooksByTitle(String title){
 
         if(title == null){
-            for (Book book : books){
+            for (BookDto book : books){
                 return this.books;
             }
         }
 
-        List<Book> filteredBooks = new ArrayList<>();
+        List<BookDto> filteredBooks = new ArrayList<>();
 
-        for (Book book : books){
+        for (BookDto book : books){
             if(book.getTitle().equals(title)){
                 filteredBooks.add(book);
             }
@@ -57,11 +57,11 @@ public class BookService {
         return filteredBooks;
     }
 
-    public Book getBookById(Integer bookId){
+    public BookDto getBookById(Integer bookId){
         return this.books.get(bookId);
     }
 
-    public Integer createBook(Book book){
+    public Integer createBook(BookDto book){
         this.books.add(book);
         return this.books.size() - 1;
     }
@@ -70,7 +70,7 @@ public class BookService {
         this.books.remove(this.books.get(bookId));
     }
 
-    public void updateBook(Integer bookId, Book book){
+    public void updateBook(Integer bookId, BookDto book){
         this.books.get(bookId).setTitle(book.getTitle());
         this.books.get(bookId).setAuthorFirstName(book.getAuthorFirstName());
         this.books.get(bookId).setAuthorLastName(book.getAuthorLastName());
