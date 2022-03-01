@@ -27,7 +27,7 @@ public class BookController {
 
     //Pridanie novej knihy
     @PostMapping("/api/books")
-    public Integer createBook(@RequestBody BookDto book){
+    public Long createBook(@RequestBody BookDto book){
        return bookService.createBook(book);
     }
 
