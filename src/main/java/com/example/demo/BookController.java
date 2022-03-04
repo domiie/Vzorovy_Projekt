@@ -1,10 +1,6 @@
 package com.example.demo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class BookController {
@@ -17,20 +13,20 @@ public class BookController {
 
     //Hľadanie knihy podľa názvu
     @GetMapping("/api/books")
-    public List<Book> getBooksByTitle(@RequestParam(required = false) String title){
-               return bookService.getBooksByTitle(title);
+    public String getBooksByTitle(@RequestParam(required = false) String title){
+        return bookService.getBooksByTitle(title);
     }
 
     //Hľadanie knihy podľa ID
     @GetMapping("/api/books/{bookId}")
-    public Book getBookById(@PathVariable Integer bookId){
+    public Long getBookById(@PathVariable Integer bookId){
         return bookService.getBookById(bookId);
     }
 
     //Pridanie novej knihy
     @PostMapping("/api/books")
-    public Integer createBook(@RequestBody Book book){
-       return bookService.createBook(book);
+    public Long createBook(@RequestBody BookDto bookDto){
+       return bookService.createBook(bookDto);
     }
 
     //Zmazanie knihy podľa ID
@@ -41,7 +37,7 @@ public class BookController {
 
     //Aktualizácia knihy podľa ID
     @PutMapping("/api/books/{bookId}")
-    public void updateBook(@PathVariable Integer bookId, @RequestBody Book book){
-        bookService.updateBook(bookId,book);
+    public void updateBook(@PathVariable Integer bookId, @RequestBody BookDto bookDto){
+        bookService.updateBook(bookId, bookDto);
     }
 }

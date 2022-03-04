@@ -1,81 +1,129 @@
 package com.example.demo;
 
 import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class BookService {
-    private List<Book> books;
 
-    public BookService(){
-        this.books = init();
-    }
-    private List<Book> init(){
-        List<Book> books = new ArrayList<>();
+    private final BookRepository bookRepository;
 
-        Book book1 = new Book();
-        book1.setAuthorFirstName("Arthur");
-        book1.setAuthorLastName("Doyle");
-        book1.setTitle("Study in Red");
-        book1.setIsbn("974-AD-41-C-F");
-        book1.setBookCount(17);
-        books.add(book1);
-        book1.setId((long) books.indexOf(book1));
-
-        Book book2 = new Book();
-        book2.setAuthorFirstName("J.R.R.");
-        book2.setAuthorLastName("Tolkien");
-        book2.setTitle("The Hobbit");
-        book2.setIsbn("128-XD-77-Q-F");
-        book2.setBookCount(12);
-        books.add(book2);
-        book2.setId((long) books.indexOf(book2));
-
-        return books;
+    public BookService(BookRepository bookRepository){
+        this.bookRepository = bookRepository;
     }
 
-    public List<Book> getListOfBooks(){
-        return this.books;
+    @Transactional
+    public BookDto getListOfBooks(){
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.getAuthorFirstName();
+        bookEntity.getAuthorLastName();
+        bookEntity.getTitle();
+        bookEntity.getIsbn();
+        bookEntity.getId();
+        bookEntity.getBookCount();
+        this.bookRepository.save(bookEntity);
+        return bookEntity;
     }
 
-    public List<Book> getBooksByTitle(String title){
+//    @Transactional
+//    public String getBooksByTitle(String title){
+//        if(title == null){
+//            for (BookDto bookDto : bookDtos){
+//                return this.bookDtos;
+//            }
+//        }
+//
+//        List<BookDto> filteredBookDtos = new ArrayList<>();
+//
+//        for (BookDto bookDto : bookDtos){
+//            if(bookDto.getTitle().equals(title)){
+//                filteredBookDtos.add(bookDto);
+//            }
+//        }
+//        return filteredBookDtos;
+//    }
 
+    @Transactional
+    public String getBooksByTitle(String title){
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.getAuthorFirstName();
+        bookEntity.getAuthorLastName();
+        bookEntity.getTitle();
+        bookEntity.getIsbn();
+        bookEntity.getId();
+        bookEntity.getBookCount();
+        this.bookRepository.save(bookEntity);
         if(title == null){
-            for (Book book : books){
-                return this.books;
-            }
+            return bookEntity.getTitle();
         }
 
-        List<Book> filteredBooks = new ArrayList<>();
+        List<BookDto> filteredBookDtos = new ArrayList<>();
 
-        for (Book book : books){
-            if(book.getTitle().equals(title)){
-                filteredBooks.add(book);
-            }
+        if(bookEntity.getTitle().equals(title)){
+            return bookEntity.getTitle();
         }
-        return filteredBooks;
+        return bookEntity.getTitle();
     }
 
-    public Book getBookById(Integer bookId){
-        return this.books.get(bookId);
+    @Transactional
+    public Long getBookById(Integer bookId){
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.getAuthorFirstName();
+        bookEntity.getAuthorLastName();
+        bookEntity.getTitle();
+        bookEntity.getIsbn();
+        bookEntity.getId();
+        bookEntity.getBookCount();
+        this.bookRepository.save(bookEntity);
+        return bookEntity.getId();
     }
 
-    public Integer createBook(Book book){
-        this.books.add(book);
-        return this.books.size() - 1;
+    @Transactional
+    public Long createBook(BookDto book){
+        //vytvarame novu entitu
+        BookEntity bookEntity = new BookEntity();
+        //nastavie name and title
+        bookEntity.setAuthorFirstName(book.getAuthorFirstName());
+        bookEntity.setAuthorLastName(book.getAuthorLastName());
+        bookEntity.setTitle(book.getTitle());
+        bookEntity.setIsbn(book.getIsbn());
+        bookEntity.setId(book.getId());
+        bookEntity.setBookCount(book.getBookCount());
+        //ulozime
+        this.bookRepository.save(bookEntity);
+        return bookEntity.getId();
     }
 
+    @Transactional
     public void deleteBook(Integer bookId){
-        this.books.remove(this.books.get(bookId));
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.getAuthorFirstName();
+        bookEntity.getAuthorLastName();
+        bookEntity.getTitle();
+        bookEntity.getIsbn();
+        bookEntity.getId();
+        bookEntity.getBookCount();
+        this.bookRepository.save(bookEntity);
+        this.bookRepository.delete(bookEntity);
     }
 
-    public void updateBook(Integer bookId, Book book){
-        this.books.get(bookId).setTitle(book.getTitle());
-        this.books.get(bookId).setAuthorFirstName(book.getAuthorFirstName());
-        this.books.get(bookId).setAuthorLastName(book.getAuthorLastName());
-        this.books.get(bookId).setBookCount(book.getBookCount());
-        this.books.get(bookId).setIsbn(book.getIsbn());
-        this.books.get(bookId).setId(book.getId());
+    @Transactional
+    public void updateBook(Integer bookId, BookDto bookDto){
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.setAuthorFirstName(bookDto.getAuthorFirstName());
+        bookEntity.setAuthorLastName(bookDto.getAuthorLastName());
+        bookEntity.setTitle(bookDto.getTitle());
+        bookEntity.setIsbn(bookDto.getIsbn());
+        bookEntity.setId(bookDto.getId());
+        bookEntity.setBookCount(bookDto.getBookCount());
+        this.bookRepository.save(bookEntity);
+//        this.bookEntity.get(bookId).setTitle(bookDto.getTitle());
+//        this.bookDtos.get(bookId).setAuthorFirstName(bookDto.getAuthorFirstName());
+//        this.bookDtos.get(bookId).setAuthorLastName(bookDto.getAuthorLastName());
+//        this.bookDtos.get(bookId).setBookCount(bookDto.getBookCount());
+//        this.bookDtos.get(bookId).setIsbn(bookDto.getIsbn());
+//        this.bookDtos.get(bookId).setId(bookDto.getId());
     }
 }

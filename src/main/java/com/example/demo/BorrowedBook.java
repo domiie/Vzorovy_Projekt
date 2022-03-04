@@ -3,7 +3,7 @@ package com.example.demo;
 public class BorrowedBook {
     private Long id;
     private Customer customer;
-    private Book book;
+    private BookDto bookDto;
     protected Long customerId;
     protected Long bookId;
 
@@ -13,8 +13,8 @@ public class BorrowedBook {
     protected Customer getCustomer() {
         return customer;
     }
-    protected Book getBook() {
-        return book;
+    protected BookDto getBook() {
+        return bookDto;
     }
 
     public Long getCustomerId(){
@@ -24,13 +24,13 @@ public class BorrowedBook {
         return customer.getFirstName() + " " + customer.getLastName();
     }
     public Long getBookId(){
-        return book.getId();
+        return bookDto.getId();
     }
     public String getAutorName(){
-        return book.getAuthorFirstName() + " " + book.getAuthorLastName();
+        return bookDto.getAuthorFirstName() + " " + bookDto.getAuthorLastName();
     }
     public String getTitle(){
-        return book.getTitle();
+        return bookDto.getTitle();
     }
 
     public void setId(Long id) {
@@ -39,7 +39,7 @@ public class BorrowedBook {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBook(BookDto bookDto) {
+        this.bookDto = bookDto;
     }
 }
