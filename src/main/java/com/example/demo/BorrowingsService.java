@@ -9,11 +9,11 @@ import java.util.List;
 public class BorrowingsService {
     private List<BorrowedBook> borrowings;
     Customer customer;
-    BookDto bookDto;
+    BookDto book;
     private BookService bookService;
     private CustomerService customerService;
-    private List<Customer> customers = customerService.getListOfCustomers();
-    private List<BookDto> bookDtos = bookService.getListOfBooks();
+    //private List<Customer> customers = customerService.getListOfCustomers()
+    private List<BookDto> books = bookService.getListOfBooks();
     public BorrowingsService(){
         this.borrowings = init();
     }
@@ -22,10 +22,10 @@ public class BorrowingsService {
     private List<BorrowedBook> init(){
         List<BorrowedBook> borrowings = new ArrayList<>();
         BorrowedBook borrowing1 = new BorrowedBook();
-        customer = customers.get(0);
-        bookDto = bookDtos.get(0);
+       // customer = customers.get(0);
+        book = books.get(0);
         borrowing1.setCustomer(customer);
-        borrowing1.setBook(bookDto);
+        borrowing1.setBook(book);
         borrowings.add(borrowing1);
         borrowing1.setId((long) borrowings.indexOf(borrowing1));
         return borrowings;
@@ -40,11 +40,11 @@ public class BorrowingsService {
     }
     //CREATING NEW BORROWING
     public String createBorrowing(Long customerId, Long bookId){
-        customer = customers.get(Math.toIntExact(customerId));
-        bookDto = bookDtos.get(Math.toIntExact(bookId));
+     //   customer = customers.get(Math.toIntExact(customerId));
+        book = books.get(Math.toIntExact(bookId));
         BorrowedBook newBorrowing = new BorrowedBook();
         newBorrowing.setCustomer(customer);
-        newBorrowing.setBook(bookDto);
+        newBorrowing.setBook(book);
         borrowings.add(newBorrowing);
         newBorrowing.setId((long) borrowings.indexOf(newBorrowing));
         return "Borrowing with id "+(this.borrowings.size()-1)+" was created.";
