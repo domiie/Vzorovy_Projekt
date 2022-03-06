@@ -5,8 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity
-public class BookEntity extends BookDto {
+public class BookEntity {
 
     public String getAuthorFirstName() {
         return authorFirstName;
