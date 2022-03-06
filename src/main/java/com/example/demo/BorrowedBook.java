@@ -3,7 +3,7 @@ package com.example.demo;
 public class BorrowedBook {
     private Long id;
     private Customer customer;
-    private Book book;
+    private BookDto book;
     protected Long customerId;
     protected Long bookId;
 
@@ -13,7 +13,7 @@ public class BorrowedBook {
     protected Customer getCustomer() {
         return customer;
     }
-    protected Book getBook() {
+    protected BookDto getBook() {
         return book;
     }
 
@@ -39,7 +39,7 @@ public class BorrowedBook {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    public void setBook(Book book) {
+    public void setBook(BookDto book) {
         this.book = book;
     }
 }
