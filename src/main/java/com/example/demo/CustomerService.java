@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -18,11 +19,9 @@ public class CustomerService {
 
     private static Customer mapToCustomer(CustomerEntity customerEntity){
         Customer customer = new Customer();
-
         customer.setFirstName(customerEntity.getFirstname());
         customer.setLastName(customerEntity.getLastname());
         customer.setContact(customerEntity.getContact());
-
         return customer;
     }
 
@@ -54,20 +53,34 @@ public class CustomerService {
     //GET CUSTOMER BY ID
     @Transactional
     public Customer getCustomer(Integer customerId){
-        //TODO DOROBIT
-        return  null;
+        for(CustomerEntity c1 : customerRepository.findAll()){
+            if(c1.getId().equals(customerId)){
+                Customer c2 = mapToCustomer(c1);
+                return c2;
+            }
+        }
+       return null;
     }
 
     //UPDATE CUSTOMER
     @Transactional
     public void updateCustomer(Integer customerId, Customer customer){
-        //TODO DOROBIT
-    }
+        Optional<CustomerEntity> byId = customerRepository.findById(customerId);
+        if (byId.isPresent()) {
+            byId.get().setFirstname(customer.getFirstName());
+            byId.get().setLastname(customer.getLastName());
+            byId.get().setContact(customer.getContact());
+            byId.get().setId(customer.getId());
+        }
 
+    }
     //DELETE CUSTOMER
     @Transactional
     public void deleteCustomer(Integer customerId){
-        //TODO DOROBIT
+        Optional<CustomerEntity> byId = customerRepository.findById(customerId);
+        if (byId.isPresent()) {
+            customerRepository.delete(byId.get());
+        }
     }
 
 }
