@@ -14,7 +14,7 @@ public class CustomerController {
 
     //CREATE CUSTOMER
     @PostMapping("/api/customers")
-    public String createCustomer(@RequestBody Customer customer){
+    public Long createCustomer(@RequestBody Customer customer){
         return customerService.createCustomer(customer);
     }
 
