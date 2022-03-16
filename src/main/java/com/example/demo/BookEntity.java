@@ -59,11 +59,11 @@ public class BookEntity {
 
     @Id
     @GeneratedValue
+    private Long id;
     private String authorFirstName;
     private String authorLastName;
     private String title;
     private String isbn;
-    private Long id;
     private int bookCount;
 
 }
