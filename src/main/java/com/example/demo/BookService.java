@@ -67,7 +67,6 @@ public class BookService {
         bookEntity.setAuthorLastName(book.getAuthorLastName());
         bookEntity.setTitle(book.getTitle());
         bookEntity.setIsbn(book.getIsbn());
-        bookEntity.setId(book.getId());
         bookEntity.setBookCount(book.getBookCount());
         //ulozime
         this.bookRepository.save(bookEntity);
