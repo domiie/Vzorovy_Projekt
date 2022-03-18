@@ -27,7 +27,7 @@ public class CustomerService {
 
     //CREATE
     @Transactional
-    public Long createCustomer(Customer customer){
+    public Long createCustomer(CustomerDto customer){
         CustomerEntity customerEntity = new CustomerEntity();
 
         customerEntity.setFirstname(customer.getFirstName());

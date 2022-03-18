@@ -9,8 +9,9 @@ public class CustomerEntity {
     @Id
     @GeneratedValue
     private Long id;
-    private String firstname;
-    private String lastname;
+
+    private String firstName;
+    private String lastName;
     private String contact;
 
     public Long getId() {
@@ -22,19 +23,19 @@ public class CustomerEntity {
     }
 
     public String getFirstname() {
-        return firstname;
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstname(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastname(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getContact() {
