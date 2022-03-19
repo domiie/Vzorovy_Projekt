@@ -46,3 +46,4 @@ public class CustomerEntity {
         this.contact = contact;
     }
 }
+

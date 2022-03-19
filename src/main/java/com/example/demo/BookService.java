@@ -29,10 +29,9 @@ public class BookService {
     }
 
     @Transactional
-    public List<BookDto> getListOfBooks(){
+    public List<BookDto> getBooks(String bookAuthor) {
         List<BookDto> books = new LinkedList<>();
-
-        for (BookEntity b1 : bookRepository.findAll()){
+        for (BookEntity b1 : bookRepository.findAll()) {
             BookDto b2 = mapToBookDto(b1);
             books.add(b2);
         }
@@ -42,18 +41,22 @@ public class BookService {
     @Transactional
     public BookDto getBooksByTitle(String title){
         Optional<BookEntity> byTitle = bookRepository.findByTitle(title);
+
         if(byTitle.isPresent()){
             return mapToBookDto(byTitle.get());
         }
+
         return null;
     }
 
     @Transactional
     public BookDto getBookById(Long bookId){
         Optional<BookEntity> byId = bookRepository.findById(bookId);
+
         if(byId.isPresent()){
             return mapToBookDto(byId.get());
         }
+
         return null;
     }
 
@@ -66,7 +69,6 @@ public class BookService {
         bookEntity.setAuthorLastName(book.getAuthorLastName());
         bookEntity.setTitle(book.getTitle());
         bookEntity.setIsbn(book.getIsbn());
-        bookEntity.setId(book.getId());
         bookEntity.setBookCount(book.getBookCount());
         //ulozime
         this.bookRepository.save(bookEntity);
@@ -76,6 +78,7 @@ public class BookService {
     @Transactional
     public void deleteBook(Long bookId){
         Optional<BookEntity> byId = bookRepository.findById(bookId);
+
         if (byId.isPresent()) {
             bookRepository.delete(byId.get());
         }
@@ -84,12 +87,12 @@ public class BookService {
     @Transactional
     public void updateBook(Long bookId, BookDto bookDto){
         Optional<BookEntity> byId = bookRepository.findById(bookId);
+
         if (byId.isPresent()) {
             byId.get().setAuthorFirstName(bookDto.getAuthorFirstName());
             byId.get().setAuthorLastName(bookDto.getAuthorLastName());
             byId.get().setTitle(bookDto.getTitle());
             byId.get().setIsbn(bookDto.getIsbn());
-            byId.get().setId(bookDto.getId());
             byId.get().setBookCount(bookDto.getBookCount());
         }
     }

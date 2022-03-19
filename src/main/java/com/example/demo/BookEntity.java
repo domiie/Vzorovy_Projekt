@@ -16,6 +16,16 @@ public class BookEntity {
     private String isbn;
     private int bookCount;
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String authorFirstName;
+    private String authorLastName;
+    private String title;
+    private String isbn;
+    private int bookCount;
+
     public String getAuthorFirstName() {
         return authorFirstName;
     }
