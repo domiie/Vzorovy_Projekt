@@ -12,7 +12,6 @@ public class BorrowingEntity {
     @GeneratedValue
     private Long id;
 
-    //Sluzi na previazanie entít
     @ManyToOne
     private CustomerEntity borrower;
 
