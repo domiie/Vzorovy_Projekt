@@ -17,17 +17,20 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    private static Customer mapToCustomer(CustomerEntity customerEntity){
-        Customer customer = new Customer();
-        customer.setFirstName(customerEntity.getFirstname());
-        customer.setLastName(customerEntity.getLastname());
-        customer.setContact(customerEntity.getContact());
-        return customer;
+    private static CustomerDto mapToCustomerDto(CustomerEntity customerEntity){
+        CustomerDto customerDto = new CustomerDto();
+
+        customerDto.setId(customerEntity.getId());
+        customerDto.setFirstName(customerEntity.getFirstname());
+        customerDto.setLastName(customerEntity.getLastname());
+        customerDto.setContact(customerEntity.getContact());
+
+        return customerDto;
     }
 
     //CREATE
     @Transactional
-    public Long createCustomer(Customer customer){
+    public Long createCustomer(CustomerDto customer){
         CustomerEntity customerEntity = new CustomerEntity();
 
         customerEntity.setFirstname(customer.getFirstName());
@@ -41,43 +44,42 @@ public class CustomerService {
 
     //LIST CUSTOMERS
     @Transactional
-    public List<Customer> getCustomers(String lastname){
-        List<Customer> cust = new LinkedList<>();
+    public List<CustomerDto> getCustomers(String lastname){
+        List<CustomerDto> customers = new LinkedList<>();
         for(CustomerEntity c1 : customerRepository.findAll()){
-            Customer c2 = mapToCustomer(c1);
-            cust.add(c2);
+            CustomerDto c2 = mapToCustomerDto(c1);
+            customers.add(c2);
         }
-        return cust;
+        return customers;
     }
 
     //GET CUSTOMER BY ID
     @Transactional
-    public Customer getCustomer(Integer customerId){
-        for(CustomerEntity c1 : customerRepository.findAll()){
-            if(c1.getId().equals(customerId)){
-                Customer c2 = mapToCustomer(c1);
-                return c2;
-            }
+    public CustomerDto getCustomer(Long customerId){
+        Optional<CustomerEntity> byId = customerRepository.findById(customerId);
+        if(byId.isPresent()){
+            return  mapToCustomerDto(byId.get());
         }
-       return null;
+        return null;
     }
 
     //UPDATE CUSTOMER
     @Transactional
-    public void updateCustomer(Integer customerId, Customer customer){
+    public void updateCustomer(Long customerId, Customer customer){
         Optional<CustomerEntity> byId = customerRepository.findById(customerId);
+
         if (byId.isPresent()) {
             byId.get().setFirstname(customer.getFirstName());
             byId.get().setLastname(customer.getLastName());
             byId.get().setContact(customer.getContact());
-            byId.get().setId(customer.getId());
         }
 
     }
     //DELETE CUSTOMER
     @Transactional
-    public void deleteCustomer(Integer customerId){
+    public void deleteCustomer(Long customerId){
         Optional<CustomerEntity> byId = customerRepository.findById(customerId);
+
         if (byId.isPresent()) {
             customerRepository.delete(byId.get());
         }

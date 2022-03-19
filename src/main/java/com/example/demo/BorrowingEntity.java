@@ -7,7 +7,6 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class BorrowingEntity {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -22,23 +21,24 @@ public class BorrowingEntity {
         return id;
     }
 
-    public CustomerEntity getBorrower() {
-        return borrower;
-    }
-
-    public BookEntity getBook() {
-        return book;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public CustomerEntity getBorrower() {
+        return borrower;
     }
 
     public void setBorrower(CustomerEntity borrower) {
         this.borrower = borrower;
     }
 
+    public BookEntity getBook() {
+        return book;
+    }
+
     public void setBook(BookEntity book) {
         this.book = book;
     }
 }
+
