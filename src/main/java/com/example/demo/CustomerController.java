@@ -20,25 +20,25 @@ public class CustomerController {
 
     //LIST CUSTOMERS
     @GetMapping("/api/customers")
-    public List<Customer> getCustomers(@RequestParam(required = false) String lastname){
+    public List<CustomerDto> getCustomers(@RequestParam(required = false) String lastname){
         return customerService.getCustomers(lastname);
     }
 
     //GET CUSTOMER BY ID
     @GetMapping("/api/customers/{customerId}")
-    public Customer getCustomer(@PathVariable Integer customerId){
+    public CustomerDto getCustomer(@PathVariable Long customerId){
         return customerService.getCustomer(customerId);
     }
 
     //UPDATE CUSTOMER
     @PutMapping("/api/customers/{customerId}")
-    public void updateCustomer(@PathVariable Integer customerId, @RequestBody Customer customer){
+    public void updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer){
         customerService.updateCustomer(customerId, customer);
     }
 
     //DELETE CUSTOMER
     @DeleteMapping("/api/customers/{customerId}")
-    public void deleteCustomer(@PathVariable Integer customerId){
+    public void deleteCustomer(@PathVariable Long customerId){
         customerService.deleteCustomer(customerId);
     }
 
