@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class Customer {
+public class CustomerDto {
     private Long id;
     private String firstName;
     private String lastName;
@@ -37,6 +37,4 @@ public class Customer {
     public void setContact(String contact) {
         this.contact = contact;
     }
-
-
 }

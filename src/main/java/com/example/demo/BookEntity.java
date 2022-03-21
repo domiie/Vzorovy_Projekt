@@ -9,6 +9,16 @@ import javax.persistence.Id;
 @Entity
 public class BookEntity {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String authorFirstName;
+    private String authorLastName;
+    private String title;
+    private String isbn;
+    private int bookCount;
+
     public String getAuthorFirstName() {
         return authorFirstName;
     }
@@ -56,14 +66,5 @@ public class BookEntity {
     public void setBookCount(int bookCount) {
         this.bookCount = bookCount;
     }
-
-    @Id
-    @GeneratedValue
-    private String authorFirstName;
-    private String authorLastName;
-    private String title;
-    private String isbn;
-    private Long id;
-    private int bookCount;
 
 }

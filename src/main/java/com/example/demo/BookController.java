@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class BookController {
 
@@ -11,10 +13,9 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    //Hľadanie knihy podľa názvu
     @GetMapping("/api/books")
-    public BookDto getBooksByTitle(@RequestParam(required = false) String title){
-        return bookService.getBooksByTitle(title);
+    public List<BookDto> getBooks(@RequestParam(required = false) String bookAuthor) {
+        return bookService.getBooks(bookAuthor);
     }
 
     //Hľadanie knihy podľa ID
