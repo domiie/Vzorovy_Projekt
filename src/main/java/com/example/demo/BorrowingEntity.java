@@ -1,20 +1,20 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
-public class BorrowingEntity {
+public class BorrowingEntity{
+
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    private CustomerEntity borrower;
+    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CustomerEntity customer;
 
-    @ManyToOne
+    @JoinColumn(name = "book_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private BookEntity book;
 
     public Long getId() {
@@ -25,12 +25,12 @@ public class BorrowingEntity {
         this.id = id;
     }
 
-    public CustomerEntity getBorrower() {
-        return borrower;
+    public CustomerEntity getCustomer() {
+        return customer;
     }
 
-    public void setBorrower(CustomerEntity borrower) {
-        this.borrower = borrower;
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
     public BookEntity getBook() {
