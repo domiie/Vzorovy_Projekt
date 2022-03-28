@@ -1,10 +1,8 @@
 package com.example.demo;
 
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +21,8 @@ public class CustomerService {
         customerDto.setId(customerEntity.getId());
         customerDto.setFirstName(customerEntity.getFirstname());
         customerDto.setLastName(customerEntity.getLastname());
-        customerDto.setContact(customerEntity.getContact());
+        customerDto.setEmail(customerEntity.getEmail());
+        customerDto.setPhoneNumber(customerEntity.getPhoneNumber());
 
         return customerDto;
     }
@@ -35,7 +34,8 @@ public class CustomerService {
 
         customerEntity.setFirstname(customer.getFirstName());
         customerEntity.setLastname(customer.getLastName());
-        customerEntity.setContact(customer.getContact());
+        customerEntity.setEmail(customer.getEmail());
+        customerEntity.setPhoneNumber(customer.getPhoneNumber());
 
         this.customerRepository.save(customerEntity);
 
@@ -65,13 +65,14 @@ public class CustomerService {
 
     //UPDATE CUSTOMER
     @Transactional
-    public void updateCustomer(Long customerId, Customer customer){
+    public void updateCustomer(Long customerId, CustomerDto customerDto){
         Optional<CustomerEntity> byId = customerRepository.findById(customerId);
 
         if (byId.isPresent()) {
-            byId.get().setFirstname(customer.getFirstName());
-            byId.get().setLastname(customer.getLastName());
-            byId.get().setContact(customer.getContact());
+            byId.get().setFirstname(customerDto.getFirstName());
+            byId.get().setLastname(customerDto.getLastName());
+            byId.get().setEmail(customerDto.getEmail());
+            byId.get().setPhoneNumber(customerDto.getPhoneNumber());
         }
 
     }
@@ -79,7 +80,6 @@ public class CustomerService {
     @Transactional
     public void deleteCustomer(Long customerId){
         Optional<CustomerEntity> byId = customerRepository.findById(customerId);
-
         if (byId.isPresent()) {
             customerRepository.delete(byId.get());
         }

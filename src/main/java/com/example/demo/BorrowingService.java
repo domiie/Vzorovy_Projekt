@@ -6,6 +6,13 @@ import com.example.demo.BorrowingEntity;
 import com.example.demo.BorrowingRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +30,9 @@ public class BorrowingService {
         borrowingDto.setId(borrowingEntity.getId());
         borrowingDto.setCustomerId(borrowingEntity.getCustomer().getId());
         borrowingDto.setBookId(borrowingEntity.getBook().getId());
+        borrowingDto.setDateOfBorrowing(borrowingEntity.getDateOfBorrowing());
+        borrowingDto.setBorrowingTerm(borrowingEntity.getBorrowingTerm());
+        borrowingDto.setDateOfReturn(borrowingEntity.getDateOfReturn());
 
         return borrowingDto;
     }
@@ -41,10 +51,19 @@ public class BorrowingService {
         Optional<CustomerEntity> c1 = customerRepository.findById(borrowingDto.getCustomerId());
         BookEntity bookEntity = b1.get();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateReturn =  LocalDate.now().plusDays(borrowingDto.getBorrowingTerm());
+//        String returnDate = dateReturn.format(formatter);
+//        String currentDate = LocalDate.now().format(formatter);
+
         if(b1.isPresent() && c1.isPresent() && bookEntity.getBookCount()>0) {
+            borrowing.setBorrowingTerm(borrowingDto.getBorrowingTerm());
             bookEntity.setBookCount(bookEntity.getBookCount()-1);
             borrowing.setBook(bookEntity);
             borrowing.setCustomer(c1.get());
+            borrowing.setDateOfBorrowing(currentDate);
+            borrowing.setDateOfReturn(dateReturn);
             this.borrowingRepository.save(borrowing);
         }
 

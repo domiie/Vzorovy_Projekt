@@ -19,12 +19,13 @@ public class BookService {
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
 
-        bookDto.setAuthorFirstName(bookEntity.getAuthorFirstName());
-        bookDto.setAuthorLastName(bookEntity.getAuthorLastName());
+        bookDto.setAuthorName(bookEntity.getAuthorName());
         bookDto.setTitle(bookEntity.getTitle());
         bookDto.setIsbn(bookEntity.getIsbn());
         bookDto.setId(bookEntity.getId());
         bookDto.setBookCount(bookEntity.getBookCount());
+        bookDto.setNumberOfPages(bookEntity.getNumberOfPages());
+        bookDto.setGenres(bookEntity.getGenres());
 
         return bookDto;
     }
@@ -37,17 +38,6 @@ public class BookService {
             books.add(b2);
         }
         return books;
-    }
-
-    @Transactional
-    public BookDto getBooksByTitle(String title){
-        Optional<BookEntity> byTitle = bookRepository.findByTitle(title);
-
-        if(byTitle.isPresent()){
-            return mapToBookDto(byTitle.get());
-        }
-
-        return null;
     }
 
     @Transactional
@@ -66,11 +56,12 @@ public class BookService {
         //vytvarame novu entitu
         BookEntity bookEntity = new BookEntity();
         //nastavie name and title
-        bookEntity.setAuthorFirstName(book.getAuthorFirstName());
-        bookEntity.setAuthorLastName(book.getAuthorLastName());
+        bookEntity.setAuthorName(book.getAuthorName());
         bookEntity.setTitle(book.getTitle());
         bookEntity.setIsbn(book.getIsbn());
         bookEntity.setBookCount(book.getBookCount());
+        bookEntity.setNumberOfPages(book.getNumberOfPages());
+        bookEntity.setGenres(book.getGenres());
         //ulozime
         this.bookRepository.save(bookEntity);
         return bookEntity.getId();
@@ -90,12 +81,14 @@ public class BookService {
         Optional<BookEntity> byId = bookRepository.findById(bookId);
 
         if (byId.isPresent()) {
-            byId.get().setAuthorFirstName(bookDto.getAuthorFirstName());
-            byId.get().setAuthorLastName(bookDto.getAuthorLastName());
+            byId.get().setAuthorName(bookDto.getAuthorName());
             byId.get().setTitle(bookDto.getTitle());
             byId.get().setIsbn(bookDto.getIsbn());
             byId.get().setBookCount(bookDto.getBookCount());
+            byId.get().setNumberOfPages(bookDto.getNumberOfPages());
+            byId.get().setGenres(bookDto.getGenres());
         }
+
     }
 }
 
