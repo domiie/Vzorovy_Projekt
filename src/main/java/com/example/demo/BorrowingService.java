@@ -6,6 +6,13 @@ import com.example.demo.BorrowingEntity;
 import com.example.demo.BorrowingRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -17,14 +24,19 @@ public class BorrowingService {
     private CustomerRepository customerRepository;
     private BorrowingRepository borrowingRepository;
 
-    private static BorrowingDto mapToBorrowingsDto(BorrowingEntity borrowingEntity){
-        BorrowingDto borrowingDto = new BorrowingDto();
+    private static BorrowingListDto mapToBorrowingsDto(BorrowingEntity borrowingEntity){
+        BorrowingListDto borrowingListDto = new BorrowingListDto();
 
-        borrowingDto.setId(borrowingEntity.getId());
-        borrowingDto.setCustomerId(borrowingEntity.getCustomer().getId());
-        borrowingDto.setBookId(borrowingEntity.getBook().getId());
+        borrowingListDto.setId(borrowingEntity.getId());
+        borrowingListDto.setCustomerId(borrowingEntity.getCustomer().getId());
+        borrowingListDto.setCustomerName(borrowingEntity.getCustomer().getFirstname()+ " " +borrowingEntity.getCustomer().getLastname());
+        borrowingListDto.setBookId(borrowingEntity.getBook().getId());
+        borrowingListDto.setBookTitle(borrowingEntity.getBook().getTitle());
+        borrowingListDto.setDateOfBorrowing(borrowingEntity.getDateOfBorrowing());
+        borrowingListDto.setBorrowingTerm(borrowingEntity.getBorrowingTerm());
+        borrowingListDto.setDateOfReturn(borrowingEntity.getDateOfReturn());
 
-        return borrowingDto;
+        return borrowingListDto;
     }
 
     public BorrowingService(BorrowingRepository borrowingRepository, BookRepository bookRepository, CustomerRepository customerRepository) {
@@ -41,10 +53,19 @@ public class BorrowingService {
         Optional<CustomerEntity> c1 = customerRepository.findById(borrowingDto.getCustomerId());
         BookEntity bookEntity = b1.get();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateReturn =  LocalDate.now().plusDays(borrowingDto.getBorrowingTerm());
+//        String returnDate = dateReturn.format(formatter);
+//        String currentDate = LocalDate.now().format(formatter);
+
         if(b1.isPresent() && c1.isPresent() && bookEntity.getBookCount()>0) {
+            borrowing.setBorrowingTerm(borrowingDto.getBorrowingTerm());
             bookEntity.setBookCount(bookEntity.getBookCount()-1);
             borrowing.setBook(bookEntity);
             borrowing.setCustomer(c1.get());
+            borrowing.setDateOfBorrowing(currentDate);
+            borrowing.setDateOfReturn(dateReturn);
             this.borrowingRepository.save(borrowing);
         }
 
@@ -52,7 +73,7 @@ public class BorrowingService {
     }
 
     @Transactional
-    public BorrowingDto getBorrowing(Long borrowingId){
+    public BorrowingListDto getBorrowing(Long borrowingId){
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if(byId.isPresent()){
             return  mapToBorrowingsDto(byId.get());
@@ -61,10 +82,10 @@ public class BorrowingService {
     }
 
     @Transactional
-    public List<BorrowingDto> getBorrowings(Long borrowingId) {
-        List<BorrowingDto> borrowings = new LinkedList<>();
+    public List<BorrowingListDto> getBorrowings(Long borrowingId) {
+        List<BorrowingListDto> borrowings = new LinkedList<>();
         for (BorrowingEntity b1 : borrowingRepository.findAll()) {
-            BorrowingDto b2 = mapToBorrowingsDto(b1);
+            BorrowingListDto b2 = mapToBorrowingsDto(b1);
             borrowings.add(b2);
         }
         return borrowings;

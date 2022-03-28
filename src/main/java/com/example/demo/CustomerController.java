@@ -32,8 +32,8 @@ public class CustomerController {
 
     //UPDATE CUSTOMER
     @PutMapping("/api/customers/{customerId}")
-    public void updateCustomer(@PathVariable Long customerId, @RequestBody Customer customer){
-        customerService.updateCustomer(customerId, customer);
+    public void updateCustomer(@PathVariable Long customerId, @RequestBody CustomerDto customerDto){
+        customerService.updateCustomer(customerId, customerDto);
     }
 
     //DELETE CUSTOMER

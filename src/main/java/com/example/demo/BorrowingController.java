@@ -15,12 +15,12 @@ public class BorrowingController {
     }
 
     @GetMapping("/api/borrowings")
-    public List<BorrowingDto> getBooks(@RequestParam(required = false) Long borrowingId) {
+    public List<BorrowingListDto> getBooks(@RequestParam(required = false) Long borrowingId) {
         return borrowingService.getBorrowings(borrowingId);
     }
 
     @GetMapping("/api/borrowings/{borrowingId}")
-    public BorrowingDto getAllBorrowings(@PathVariable Long borrowingId) {
+    public BorrowingListDto getAllBorrowings(@PathVariable Long borrowingId) {
        return borrowingService.getBorrowing(borrowingId);
     }
 
