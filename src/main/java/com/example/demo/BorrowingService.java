@@ -24,17 +24,19 @@ public class BorrowingService {
     private CustomerRepository customerRepository;
     private BorrowingRepository borrowingRepository;
 
-    private static BorrowingDto mapToBorrowingsDto(BorrowingEntity borrowingEntity){
-        BorrowingDto borrowingDto = new BorrowingDto();
+    private static BorrowingListDto mapToBorrowingsDto(BorrowingEntity borrowingEntity){
+        BorrowingListDto borrowingListDto = new BorrowingListDto();
 
-        borrowingDto.setId(borrowingEntity.getId());
-        borrowingDto.setCustomerId(borrowingEntity.getCustomer().getId());
-        borrowingDto.setBookId(borrowingEntity.getBook().getId());
-        borrowingDto.setDateOfBorrowing(borrowingEntity.getDateOfBorrowing());
-        borrowingDto.setBorrowingTerm(borrowingEntity.getBorrowingTerm());
-        borrowingDto.setDateOfReturn(borrowingEntity.getDateOfReturn());
+        borrowingListDto.setId(borrowingEntity.getId());
+        borrowingListDto.setCustomerId(borrowingEntity.getCustomer().getId());
+        borrowingListDto.setCustomerName(borrowingEntity.getCustomer().getFirstname()+ " " +borrowingEntity.getCustomer().getLastname());
+        borrowingListDto.setBookId(borrowingEntity.getBook().getId());
+        borrowingListDto.setBookTitle(borrowingEntity.getBook().getTitle());
+        borrowingListDto.setDateOfBorrowing(borrowingEntity.getDateOfBorrowing());
+        borrowingListDto.setBorrowingTerm(borrowingEntity.getBorrowingTerm());
+        borrowingListDto.setDateOfReturn(borrowingEntity.getDateOfReturn());
 
-        return borrowingDto;
+        return borrowingListDto;
     }
 
     public BorrowingService(BorrowingRepository borrowingRepository, BookRepository bookRepository, CustomerRepository customerRepository) {
@@ -71,7 +73,7 @@ public class BorrowingService {
     }
 
     @Transactional
-    public BorrowingDto getBorrowing(Long borrowingId){
+    public BorrowingListDto getBorrowing(Long borrowingId){
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if(byId.isPresent()){
             return  mapToBorrowingsDto(byId.get());
@@ -80,10 +82,10 @@ public class BorrowingService {
     }
 
     @Transactional
-    public List<BorrowingDto> getBorrowings(Long borrowingId) {
-        List<BorrowingDto> borrowings = new LinkedList<>();
+    public List<BorrowingListDto> getBorrowings(Long borrowingId) {
+        List<BorrowingListDto> borrowings = new LinkedList<>();
         for (BorrowingEntity b1 : borrowingRepository.findAll()) {
-            BorrowingDto b2 = mapToBorrowingsDto(b1);
+            BorrowingListDto b2 = mapToBorrowingsDto(b1);
             borrowings.add(b2);
         }
         return borrowings;

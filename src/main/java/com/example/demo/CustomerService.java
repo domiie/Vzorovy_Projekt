@@ -82,7 +82,7 @@ public class CustomerService {
         Optional<CustomerEntity> byId = customerRepository.findById(customerId);
         if (byId.isPresent()) {
             customerRepository.delete(byId.get());
-        }
+        } //TODO SPRAVA CHYBY KED SA NEPODARILO VYMAZAT (throw)
     }
 
 }
