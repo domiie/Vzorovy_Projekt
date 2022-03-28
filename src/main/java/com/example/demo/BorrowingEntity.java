@@ -1,20 +1,28 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
-public class BorrowingEntity {
+public class BorrowingEntity{
+
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    private CustomerEntity borrower;
+    private LocalDate dateOfBorrowing;
+    private long borrowingTerm;
+    private LocalDate dateOfReturn;
 
-    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CustomerEntity customer;
+
+    @JoinColumn(name = "book_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private BookEntity book;
 
     public Long getId() {
@@ -25,12 +33,12 @@ public class BorrowingEntity {
         this.id = id;
     }
 
-    public CustomerEntity getBorrower() {
-        return borrower;
+    public CustomerEntity getCustomer() {
+        return customer;
     }
 
-    public void setBorrower(CustomerEntity borrower) {
-        this.borrower = borrower;
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
     }
 
     public BookEntity getBook() {
@@ -40,5 +48,30 @@ public class BorrowingEntity {
     public void setBook(BookEntity book) {
         this.book = book;
     }
+
+    public LocalDate getDateOfBorrowing() {
+        return dateOfBorrowing;
+    }
+
+    public void setDateOfBorrowing(LocalDate dateOfBorrowing) {
+        this.dateOfBorrowing = dateOfBorrowing;
+    }
+
+    public long getBorrowingTerm() {
+        return borrowingTerm;
+    }
+
+    public void setBorrowingTerm(long borrowingTerm) {
+        this.borrowingTerm = borrowingTerm;
+    }
+
+    public LocalDate getDateOfReturn() {
+        return dateOfReturn;
+    }
+
+    public void setDateOfReturn(LocalDate dateOfReturn) {
+        this.dateOfReturn = dateOfReturn;
+    }
+
 }
 

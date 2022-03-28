@@ -8,6 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends CrudRepository<BookEntity, Long>  {
-    Optional<BookEntity> findByTitle(String title);
+    @Override
+    List<BookEntity> findAll();
+    Optional<BookEntity> findById(Long bookId);
 }
 

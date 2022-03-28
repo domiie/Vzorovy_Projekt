@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface CustomerRepository extends CrudRepository<CustomerEntity, Long> {
     @Override
     List<CustomerEntity> findAll();
-    Optional<CustomerEntity> findById(Integer customerId);
+    Optional<CustomerEntity> findById(Long customerId);
 }

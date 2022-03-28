@@ -1,23 +1,13 @@
 package com.example.demo;
 
 public class BookDto {
-
-    private Long id;
     private String authorName;
     private String title;
     private String isbn;
+    private Long id;
     private int bookCount;
+    private int numberOfPages;
     private String genres;
-    private int num_pages;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getAuthorName() {
         return authorName;
@@ -31,24 +21,40 @@ public class BookDto {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public Long getId() {
+        return id;
     }
 
     public int getBookCount() {
         return bookCount;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setBookCount(int bookCount) {
         this.bookCount = bookCount;
+    }
+
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
     public String getGenres() {
@@ -57,13 +63,5 @@ public class BookDto {
 
     public void setGenres(String genres) {
         this.genres = genres;
-    }
-
-    public int getNum_pages() {
-        return num_pages;
-    }
-
-    public void setNum_pages(int num_pages) {
-        this.num_pages = num_pages;
     }
 }

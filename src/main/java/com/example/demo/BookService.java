@@ -19,13 +19,13 @@ public class BookService {
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
 
-        bookDto.setId(bookEntity.getId());
         bookDto.setAuthorName(bookEntity.getAuthorName());
         bookDto.setTitle(bookEntity.getTitle());
         bookDto.setIsbn(bookEntity.getIsbn());
+        bookDto.setId(bookEntity.getId());
         bookDto.setBookCount(bookEntity.getBookCount());
+        bookDto.setNumberOfPages(bookEntity.getNumberOfPages());
         bookDto.setGenres(bookEntity.getGenres());
-        bookDto.setNum_pages(bookEntity.getNum_pages());
 
         return bookDto;
     }
@@ -38,17 +38,6 @@ public class BookService {
             books.add(b2);
         }
         return books;
-    }
-
-    @Transactional
-    public BookDto getBooksByTitle(String title){
-        Optional<BookEntity> byTitle = bookRepository.findByTitle(title);
-
-        if(byTitle.isPresent()){
-            return mapToBookDto(byTitle.get());
-        }
-
-        return null;
     }
 
     @Transactional
@@ -71,8 +60,8 @@ public class BookService {
         bookEntity.setTitle(book.getTitle());
         bookEntity.setIsbn(book.getIsbn());
         bookEntity.setBookCount(book.getBookCount());
+        bookEntity.setNumberOfPages(book.getNumberOfPages());
         bookEntity.setGenres(book.getGenres());
-        bookEntity.setNum_pages(book.getNum_pages());
         //ulozime
         this.bookRepository.save(bookEntity);
         return bookEntity.getId();
@@ -96,8 +85,10 @@ public class BookService {
             byId.get().setTitle(bookDto.getTitle());
             byId.get().setIsbn(bookDto.getIsbn());
             byId.get().setBookCount(bookDto.getBookCount());
+            byId.get().setNumberOfPages(bookDto.getNumberOfPages());
             byId.get().setGenres(bookDto.getGenres());
-            byId.get().setNum_pages(bookDto.getNum_pages());
         }
+
     }
 }
+
