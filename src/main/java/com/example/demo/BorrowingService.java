@@ -53,19 +53,13 @@ public class BorrowingService {
         Optional<CustomerEntity> c1 = customerRepository.findById(borrowingDto.getCustomerId());
         BookEntity bookEntity = b1.get();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate currentDate = LocalDate.now();
-        LocalDate dateReturn =  LocalDate.now().plusDays(borrowingDto.getBorrowingTerm());
-//        String returnDate = dateReturn.format(formatter);
-//        String currentDate = LocalDate.now().format(formatter);
-
         if(b1.isPresent() && c1.isPresent() && bookEntity.getBookCount()>0) {
             borrowing.setBorrowingTerm(borrowingDto.getBorrowingTerm());
             bookEntity.setBookCount(bookEntity.getBookCount()-1);
             borrowing.setBook(bookEntity);
             borrowing.setCustomer(c1.get());
-            borrowing.setDateOfBorrowing(currentDate);
-            borrowing.setDateOfReturn(dateReturn);
+            borrowing.setDateOfBorrowing(LocalDate.now());
+            borrowing.setDateOfReturn(LocalDate.now().plusDays(borrowingDto.getBorrowingTerm()));
             this.borrowingRepository.save(borrowing);
         }
 

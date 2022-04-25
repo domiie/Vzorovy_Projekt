@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 public class BookDto {
     private String authorName;
     private String title;
@@ -8,6 +10,15 @@ public class BookDto {
     private int bookCount;
     private int numberOfPages;
     private String genres;
+    private List<Long> folderIds;
+
+    public List<Long> getFolderIds() {
+        return folderIds;
+    }
+
+    public void setFolderIds(List<Long> folderIds) {
+        this.folderIds = folderIds;
+    }
 
     public String getAuthorName() {
         return authorName;

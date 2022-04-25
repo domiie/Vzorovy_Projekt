@@ -11,14 +11,23 @@ import java.util.Optional;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final FolderRepository folderRepository;
 
-    public BookService(BookRepository bookRepository){
+    public BookService(BookRepository bookRepository, FolderRepository folderRepository){
         this.bookRepository = bookRepository;
+        this.folderRepository = folderRepository;
+    }
+
+    private List<FolderEntity> mapFolderToFolderEntity(List<Long> folderIds){
+        List<FolderEntity> folderEntities = new ArrayList<>();
+        for(Long folderId: folderIds){
+            folderEntities.add(folderRepository.findById(folderId).get()) ;
+        }
+      return folderEntities;
     }
 
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
-
         bookDto.setAuthorName(bookEntity.getAuthorName());
         bookDto.setTitle(bookEntity.getTitle());
         bookDto.setIsbn(bookEntity.getIsbn());
@@ -26,6 +35,11 @@ public class BookService {
         bookDto.setBookCount(bookEntity.getBookCount());
         bookDto.setNumberOfPages(bookEntity.getNumberOfPages());
         bookDto.setGenres(bookEntity.getGenres());
+        List<Long> folderIds = new ArrayList<>();
+        for(FolderEntity folder: bookEntity.getFolderEntity()){
+             folderIds.add(folder.getFolderId());
+        }
+        bookDto.setFolderIds(folderIds);
 
         return bookDto;
     }
@@ -62,6 +76,8 @@ public class BookService {
         bookEntity.setBookCount(book.getBookCount());
         bookEntity.setNumberOfPages(book.getNumberOfPages());
         bookEntity.setGenres(book.getGenres());
+        List<FolderEntity> folderEntities = mapFolderToFolderEntity(book.getFolderIds());
+        bookEntity.setFolderEntity(folderEntities);
         //ulozime
         this.bookRepository.save(bookEntity);
         return bookEntity.getId();

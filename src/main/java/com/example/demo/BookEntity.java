@@ -4,6 +4,8 @@ import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 
 @Entity
@@ -12,6 +14,17 @@ public class BookEntity {
     @Id
     @GeneratedValue
     private Long id;
+
+    @ManyToMany
+    private List<FolderEntity> folderEntity;
+
+    public List<FolderEntity> getFolderEntity() {
+        return folderEntity;
+    }
+
+    public void setFolderEntity(List<FolderEntity> folderEntity) {
+        this.folderEntity = folderEntity;
+    }
 
     private String authorName;
     private String title;
