@@ -19,7 +19,8 @@ public class BookService {
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
 
-        bookDto.setAuthorName(bookEntity.getAuthorName());
+        bookDto.setAuthorFirstName(bookEntity.getAuthorFirstName());
+        bookDto.setAuthorLastName(bookEntity.getAuthorLastName());
         bookDto.setTitle(bookEntity.getTitle());
         bookDto.setIsbn(bookEntity.getIsbn());
         bookDto.setId(bookEntity.getId());
@@ -56,7 +57,8 @@ public class BookService {
         //vytvarame novu entitu
         BookEntity bookEntity = new BookEntity();
         //nastavie name and title
-        bookEntity.setAuthorName(book.getAuthorName());
+        bookEntity.setAuthorFirstName(book.getAuthorFirstName());
+        bookEntity.setAuthorLastName(book.getAuthorLastName());
         bookEntity.setTitle(book.getTitle());
         bookEntity.setIsbn(book.getIsbn());
         bookEntity.setBookCount(book.getBookCount());
@@ -81,7 +83,8 @@ public class BookService {
         Optional<BookEntity> byId = bookRepository.findById(bookId);
 
         if (byId.isPresent()) {
-            byId.get().setAuthorName(bookDto.getAuthorName());
+            byId.get().setAuthorFirstName(bookDto.getAuthorFirstName());
+            byId.get().setAuthorLastName(bookDto.getAuthorLastName());
             byId.get().setTitle(bookDto.getTitle());
             byId.get().setIsbn(bookDto.getIsbn());
             byId.get().setBookCount(bookDto.getBookCount());

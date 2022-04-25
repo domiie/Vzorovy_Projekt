@@ -13,19 +13,28 @@ public class BookEntity {
     @GeneratedValue
     private Long id;
 
-    private String authorName;
+    private String authorFirstName;
+    private String authorLastName;
     private String title;
     private String isbn;
     private int bookCount;
     private int numberOfPages;
     private String genres;
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthorFirstName() {
+        return authorFirstName;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthorFirstName(String authorFirstName) {
+        this.authorFirstName = authorFirstName;
+    }
+
+    public String getAuthorLastName() {
+        return authorLastName;
+    }
+
+    public void setAuthorLastName(String authorLastName) {
+        this.authorLastName = authorLastName;
     }
 
     public String getTitle() {
