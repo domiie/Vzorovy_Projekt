@@ -17,6 +17,16 @@ services:
       - data:/var/lib/postgresql
       - logs:/var/log/postgresql
 
+  backend:
+    image: library-be
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: library-fe
+    ports:
+      - "80:80"
+
 volumes:
   data:
   logs:

@@ -26,8 +26,8 @@ public class BookController {
 
     //Pridanie novej knihy
     @PostMapping("/api/books")
-    public Long createBook(@RequestBody BookDto bookDto){
-       return bookService.createBook(bookDto);
+    public Long createBook(@RequestBody BookDto book){
+       return bookService.createBook(book);
     }
 
     //Zmazanie knihy podľa ID
